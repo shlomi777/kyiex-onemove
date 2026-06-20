@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>One move. Right now. · KYIEX</title>
 <meta name="description" content="You are not lazy. You are overloaded. Dump what is on your mind, pick the capacity you have, and get back the one move that fits." />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S28VBL9VK6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S28VBL9VK6');
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
 
@@ -218,8 +227,7 @@
       <div class="divider"></div>
       <div class="closer">
         <p class="upsell">That was one move, once. KYIEX gives you the right move every day, inside your Notion.</p>
-        <a class="primary" href="https://kyiex.net" target="_blank" rel="noreferrer">Get access</a>
-        <button class="reset" id="reset-result">Clear and start over</button>
+<a class="primary" href="https://kyiex.net" target="_blank" rel="noreferrer" onclick="window.gtag && gtag('event', 'click_get_access');">Get access</a>        <button class="reset" id="reset-result">Clear and start over</button>
       </div>
     </main>
 
@@ -281,9 +289,16 @@
         show('error');
         return;
       }
-      $('out-move').textContent = data.move;
-      $('out-reason').textContent = data.reason;
-      show('result');
+$('out-move').textContent = data.move;
+$('out-reason').textContent = data.reason;
+
+if (window.gtag) {
+  gtag('event', 'one_move_result', {
+    capacity: state.capacity
+  });
+}
+
+show('result');
     } catch {
       $('out-error').textContent = 'The signal dropped. Try once more.';
       show('error');
